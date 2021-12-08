@@ -1,9 +1,9 @@
 package me.luraframework.auth;
 
-import me.luraframework.boot.LuraFramework;
+import me.luraframework.boot.LuraBootApplication;
 import org.springframework.boot.SpringApplication;
 
-@LuraFramework
+@LuraBootApplication
 public class AuthApplication {
 
     public static void main(String[] args) {

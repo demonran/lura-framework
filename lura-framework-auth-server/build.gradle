@@ -15,7 +15,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.security:spring-security-jwt:1.0.10.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'me.luraframework:lura-framework-spring-boot-starter:1.0-SNAPSHOT'
+    implementation 'io.github.luraframework:lura-framework-spring-boot-starter:0.0.1'
 
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'

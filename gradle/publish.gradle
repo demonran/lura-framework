@@ -21,7 +21,10 @@ publishing {
         }
       }
       pom {
-        description = project.description
+        afterEvaluate {
+          name = project.name
+          description = project.description
+        }
         url = 'https://github.com/luraframework/lura-framework'
         licenses {
           license {

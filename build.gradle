@@ -17,8 +17,6 @@ def jarProject = subprojects.findAll {it.name.endsWith("starter") || it.name == 
 // config maven publish
 configure(jarProject) {
     apply plugin: 'java'
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
 
     group rootProject.group
     version rootProject.version
