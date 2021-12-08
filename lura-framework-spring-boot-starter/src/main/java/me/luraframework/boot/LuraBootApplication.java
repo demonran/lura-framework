@@ -1,5 +1,6 @@
 package me.luraframework.boot;
 
+import com.spring4all.swagger.EnableSwagger2Doc;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
@@ -14,5 +15,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @EnableDiscoveryClient
 @SpringBootApplication
+@EnableSwagger2Doc
 public @interface LuraBootApplication {
 }

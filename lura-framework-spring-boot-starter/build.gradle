@@ -23,7 +23,10 @@ dependencies {
     api 'org.springframework.cloud:spring-cloud-starter-sleuth'
     api 'org.springframework.cloud:spring-cloud-sleuth-zipkin'
 
+    // 日志采集
     api 'com.plumelog:plumelog-logback:3.5.2'
+    // swagger
+    api 'com.spring4all:swagger-spring-boot-starter:1.9.1.RELEASE'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
