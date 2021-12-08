@@ -2,16 +2,10 @@ plugins {
     id 'java-library'
     id 'org.springframework.boot'
     id 'io.spring.dependency-management'
-    id 'maven-publish'
 }
 
-group 'me.luraframework'
-version '1.0-SNAPSHOT'
-targetCompatibility = "1.8"
+description 'The starter of lura framework'
 
-repositories {
-    mavenCentral()
-}
 
 dependencyManagement {
     imports {
@@ -39,26 +33,3 @@ test {
 }
 
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
-            description 'lura framework spring boot starter' // 说明描述
-        }
-    }
-}
-bootJar {
-    enabled=false
-}
-
-jar {
-    enabled=true
-}

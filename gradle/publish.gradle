@@ -1,0 +1,71 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+java {
+  withJavadocJar()
+  withSourcesJar()
+}
+
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      artifactId = 'lura-framework-core'
+      from components.java
+      versionMapping {
+        usage('java-api') {
+          fromResolutionOf('runtimeClasspath')
+        }
+        usage('java-runtime') {
+          fromResolutionResult()
+        }
+      }
+      pom {
+        println(project.name)
+        description = project.description
+        url = 'https://github.com/luraframework/lura-framework'
+        licenses {
+          license {
+            name = 'The Apache License, Version 2.0'
+            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+        developers {
+          developer {
+            id = 'Lura'
+            name = 'Ran Liu'
+            email = 'luraframework@163.com'
+          }
+        }
+        scm {
+          connection = 'scm:git@github.com:luraframework/lura-framework.git'
+          developerConnection = 'scm:git@github.com:luraframework/lura-framework.git'
+          url = 'https://github.com/luraframework/lura-framework'
+        }
+      }
+    }
+  }
+  repositories {
+    maven {
+      credentials {
+        username "${ossrhUsername}"// 仓库发布用户名
+        password "${ossrhPassword}" // 仓库发布用户密码
+      }
+      // change URLs to point to your repos, e.g. http://my.org/repo
+      def releasesRepoUrl = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+      def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+      url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+    }
+
+  }
+}
+
+signing {
+  sign publishing.publications.mavenJava
+}
+
+
+test {
+  useJUnitPlatform()
+}

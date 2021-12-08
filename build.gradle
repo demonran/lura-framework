@@ -7,52 +7,31 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
-group 'me.luraframework'
-version '1.0-SNAPSHOT'
+group 'io.github.luraframework'
+version '0.0.1'
 
 
-def starterProject = subprojects.findAll {it.name.endsWith("starter")}
+def jarProject = subprojects.findAll {it.name.endsWith("starter") || it.name == "lura-framework-core" }
 
-starterProject.each {
+
+// config maven publish
+configure(jarProject) {
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
 
+    group rootProject.group
+    version rootProject.version
+    targetCompatibility = "1.8"
+
     repositories {
-        maven {
-            credentials {
-                username '8J4Kgq'
-                password 'SCqYUI3Fo0'
-            }
-            url 'https://repo.rdc.aliyun.com/repository/125176-release-in5j7Q/'
-        }
-        maven {
-            credentials {
-                username '8J4Kgq'
-                password 'SCqYUI3Fo0'
-            }
-            url 'https://repo.rdc.aliyun.com/repository/125176-snapshot-ZRQIV3/'
-        }
         mavenCentral()
     }
 
-    targetCompatibility = "1.8"
-
-    dependencies {
-        implementation 'cn.hutool:hutool-all:5.3.4'
-    }
 
 
-    java {
-        withSourcesJar()
-    }
 
-
-    test {
-        useJUnitPlatform()
-    }
-
-    apply from: "${rootProject.projectDir}/lura-zipkin-server/docker-compose.gradle"
+    apply from: "${rootProject.projectDir}/gradle/publish.gradle"
 
 }
 
