@@ -33,14 +33,16 @@ bash ./scripts/start.sh
 ```shell
 bash ./scripts/start-net.sh
 ```
-2. 启动nacos服务
-```shell
-bash ./scripts/stop-nacos-server.sh
-```
-3. 启动zipkin服务
-```shell
-bash ./scripts/start-zipkin-server.sh
-```
+2. 启动服务
+
+| 服务                   | 地址                    | 启动脚本                        | 
+|----------------------|-----------------------|-----------------------------|
+| 日志服务                 | http://localhost:8891 | `start-plumelog-server.sh`    |
+| 注册配置服务               | http://localhost:8848 | `start-nacos-server.sh`       |
+| zipkin服务             | http://localhost:9411 | `start-zipkin-server.sh`      |
+| sentinel dashboard服务 | http://localhost:8858 | `start-sentinel-dashboard.sh` |
+
+
 
 ## 技术架构图
 
