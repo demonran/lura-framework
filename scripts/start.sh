@@ -10,3 +10,5 @@ workDir=$(dirname "$PWD")
 .$workDir/start-gateway-server.sh
 #启动devops
 .$workDir/start-devops.sh
+#启动plumelog server
+.$workDir/start-plumelog-server.sh

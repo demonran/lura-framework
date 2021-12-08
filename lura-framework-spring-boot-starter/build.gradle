@@ -23,6 +23,8 @@ dependencies {
     api 'org.springframework.cloud:spring-cloud-starter-sleuth'
     api 'org.springframework.cloud:spring-cloud-sleuth-zipkin'
 
+    api 'com.plumelog:plumelog-logback:3.5.2'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }

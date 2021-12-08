@@ -1,0 +1,16 @@
+version: '3'
+services:
+  plumelog-server:
+    image: xiaobai021sdo/plumelog:3.5
+    container_name: plumelog-server
+    restart: always
+    ports:
+      - "8891:8891"
+    volumes:
+      - ./config:/plumelog-server/config
+    networks:
+      - lura-plumelog-net
+networks:
+  lura-plumelog-net:
+    external:
+      name: lura_net

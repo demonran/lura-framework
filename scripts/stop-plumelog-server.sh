@@ -2,6 +2,11 @@
 
 workdir=$(dirname "$PWD")
 
-cd $workdir/lura-sentinel-dashboard
+cd $workdir/devops/plumelog-server
 
 docker-compose down
+
+
+
+
+
