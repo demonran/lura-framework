@@ -16,20 +16,33 @@ bootJar {
 repositories {
     mavenCentral()
     maven { url 'https://repo.spring.io/milestone' }
+    maven {
+        url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+        mavenContent {
+            snapshotsOnly()
+        }
+    }
 }
 
+
 ext {
-    set('springCloudVersion', "2020.0.3")
+    set('springCloudVersion', "2020.0.4")
 }
 
 dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+    implementation 'com.alibaba.csp:sentinel-datasource-nacos'
+    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:2.2.6.RELEASE"
     }
 }
 

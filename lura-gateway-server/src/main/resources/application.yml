@@ -1,6 +1,8 @@
 server:
   port: 22307
 spring:
+  application:
+    name: lura-gateway-server
   cloud:
     gateway:
       routes:
