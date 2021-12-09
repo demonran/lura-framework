@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "application.auth")
 public class AuthProperties {
-    private String checkUrl;
-    private String loginUrl;
-    private String logoutUrl;
+    private String checkUrl = "http://lura-framework-auth-server/auth/check";
+    private String loginUrl = "http://lura-framework-auth-server/auth/login";
+    private String logoutUrl = "http://lura-framework-auth-server/auth/lougout";
 }

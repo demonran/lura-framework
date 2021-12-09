@@ -4,9 +4,9 @@ spring:
   application:
     name: lura-framework-auth-server
   cloud:
-    nacos:
-      discovery:
-        group: LURA-FRAMEWORK
+#    nacos:
+#      discovery:
+#        group: LURA-FRAMEWORK
     sentinel:
       datasource:
         flow:

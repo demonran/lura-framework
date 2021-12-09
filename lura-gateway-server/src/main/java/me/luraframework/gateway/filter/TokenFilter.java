@@ -27,6 +27,7 @@ import static me.luraframework.gateway.exception.GatewayErrorCode.INVALID_TOKEN;
 public class TokenFilter implements GlobalFilter, Ordered {
 
     private final AuthProperties authProperties;
+    private final WebClient.Builder builder;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -38,8 +39,7 @@ public class TokenFilter implements GlobalFilter, Ordered {
         if (Strings.isBlank(token)) {
             return Mono.error(new AppException(INVALID_TOKEN, of()));
         }
-        WebClient webClient = WebClient.create();
-        return webClient.post()
+        return builder.build().post()
                         .uri(authProperties.getCheckUrl())
                         .header("Token", token)
                         .contentType(MediaType.APPLICATION_JSON)

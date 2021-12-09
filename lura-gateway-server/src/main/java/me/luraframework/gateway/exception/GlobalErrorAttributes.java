@@ -16,8 +16,9 @@ public class GlobalErrorAttributes extends DefaultErrorAttributes {
     public Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
         Map<String, Object> map = super.getErrorAttributes(request, options);
 
-        if (getError(request) instanceof AppException) {
-            AppException ex = (AppException) getError(request);
+        Throwable error = getError(request);
+        if (error instanceof AppException) {
+            AppException ex = (AppException) error;
             ErrorCode errorCode = ex.getErrorCode();
             map.put("message", errorCode.getMessage());
             map.put("status", errorCode.getStatus());
@@ -27,10 +28,7 @@ public class GlobalErrorAttributes extends DefaultErrorAttributes {
             return map;
         }
 
-        map.put("exception", "SystemException");
-        map.put("message", "System Error , Check logs!");
-        map.put("status", "500");
-        map.put("error", " System Error ");
+        map.put("message", error.getMessage());
         return map;
     }
 }
