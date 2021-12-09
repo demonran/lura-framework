@@ -6,7 +6,13 @@ spring:
   cloud:
     gateway:
       routes:
-      - id: after_route
+      - id: path_route
         uri: http://www.baidu.com
         predicates:
         - Path=/
+
+
+application.auth:
+  login-url: http://localhost:8013/auth/login
+  check-url: http://localhost:8013/auth/check
+  logout-url: http://localhost:8013/auth/logout

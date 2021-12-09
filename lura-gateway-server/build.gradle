@@ -35,6 +35,9 @@ dependencies {
     implementation 'com.alibaba.csp:sentinel-datasource-nacos'
     implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
 
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
