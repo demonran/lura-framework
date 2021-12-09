@@ -9,24 +9,24 @@ description 'The starter of lura framework'
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:2020.0.4"
+        mavenBom "org.springframework.boot:spring-boot-dependencies:2.5.4"
         mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:2.2.6.RELEASE"
     }
 }
 
 dependencies {
     api project(":lura-framework-core")
-    api "org.springframework.boot:spring-boot-starter-web"
 
     api 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
-    api 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
     api 'com.alibaba.csp:sentinel-datasource-nacos'
     api 'org.springframework.cloud:spring-cloud-starter-sleuth'
     api 'org.springframework.cloud:spring-cloud-sleuth-zipkin'
 
     // 日志采集
-    api 'com.plumelog:plumelog-logback:3.5.2'
+    api 'com.plumelog:plumelog-logback:3.5.1'
     // swagger
     api 'com.spring4all:swagger-spring-boot-starter:1.9.1.RELEASE'
+    api 'org.hibernate:hibernate-validator:6.2.0.Final'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'

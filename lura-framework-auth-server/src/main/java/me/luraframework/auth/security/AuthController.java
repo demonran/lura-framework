@@ -1,41 +1,34 @@
 package me.luraframework.auth.security;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import lombok.RequiredArgsConstructor;
-import me.luraframework.core.commons.JsonUtils;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.jwt.Jwt;
-import org.springframework.security.jwt.JwtHelper;
-import org.springframework.security.jwt.crypto.sign.MacSigner;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("auth")
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
+    private final AuthService authService;
 
-    private String jwtKey = "securityKey";
 
     @PostMapping("login")
     public Object login(@RequestBody AuthUserDto authUserDto) {
+        return authService.login(authUserDto);
+    }
 
-        UsernamePasswordAuthenticationToken authenticationToken
-                = new UsernamePasswordAuthenticationToken(authUserDto.getUsername(), authUserDto.getPassword());
-        Authentication authentication = authenticationManager.authenticate(authenticationToken);
-        Jwt encode = JwtHelper.encode(JsonUtils.toStr(authentication.getPrincipal()), new MacSigner(jwtKey));
-        return encode.getEncoded();
+    @PostMapping("check")
+    public JwtUser check(HttpServletRequest request) {
+        return authService.check(request);
     }
 
     @PostMapping("logout")
-    public Object logout() {
-        return "退出成功";
+    public void logout(HttpServletRequest request) {
+        authService.logout(request);
     }
 }
 

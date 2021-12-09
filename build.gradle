@@ -8,7 +8,7 @@ plugins {
 }
 
 group 'io.github.luraframework'
-version '0.0.1'
+version '0.0.2-SNAPSHOT'
 
 
 def jarProject = subprojects.findAll {it.name.endsWith("starter") || it.name == "lura-framework-core" }
@@ -24,6 +24,12 @@ configure(jarProject) {
 
     repositories {
         mavenCentral()
+        maven {
+            url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+            mavenContent {
+                snapshotsOnly()
+            }
+        }
     }
 
 

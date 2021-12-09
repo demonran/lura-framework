@@ -46,6 +46,9 @@ bash ./scripts/start-net.sh
 
 ## 技术架构图
 
+## changelog
+- 增加swagger文档 
+
 ## 演示代码
 [电商系统](https://github.com/demonran/lura-framework-examples)
 

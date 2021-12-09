@@ -1,0 +1,12 @@
+package me.luraframework.auth.exception;
+
+import me.luraframework.core.commons.exception.AppException;
+import me.luraframework.core.commons.exception.ErrorCode;
+
+import java.util.Map;
+
+public class InvalidTokenException extends AppException {
+    public InvalidTokenException(Map<String, Object> data) {
+        super(AuthErrorCode.INVALID_TOKEN, data);
+    }
+}
