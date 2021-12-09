@@ -11,7 +11,6 @@ import java.util.Map;
 public class ErrorDetail {
 
     String code;
-    int status;
     String message;
     String path;
     Instant timestamp;
