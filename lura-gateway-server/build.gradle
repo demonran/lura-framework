@@ -29,7 +29,14 @@ ext {
     set('springCloudVersion', "2020.0.4")
 }
 
+configurations.all {
+    resolutionStrategy {
+        cacheChangingModulesFor 0, 'seconds'
+    }
+}
+
 dependencies {
+    implementation 'io.github.luraframework:lura-framework-commons:0.0.2-SNAPSHOT'
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
     implementation 'com.alibaba.csp:sentinel-datasource-nacos'

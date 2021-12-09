@@ -15,4 +15,5 @@ include 'lura-gateway-server'
 include 'lura-framework-spring-boot-starter'
 include 'lura-framework-auth-server'
 include 'lura-framework-core'
+include 'lura-framework-commons'
 

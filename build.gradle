@@ -1,39 +1,47 @@
 plugins {
-    id 'org.springframework.boot'
-    id 'org.jetbrains.kotlin.jvm' apply false
-    id 'java-library'
-    id 'maven-publish'
-    id "com.avast.gradle.docker-compose" version "0.14.9"
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+  id 'org.springframework.boot'
+  id 'org.jetbrains.kotlin.jvm' apply false
+  id 'java-library'
+  id 'maven-publish'
+  id "com.avast.gradle.docker-compose" version "0.14.9"
+  id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 group 'io.github.luraframework'
 version '0.0.2-SNAPSHOT'
 
 
-def jarProject = subprojects.findAll {it.name.endsWith("starter") || it.name == "lura-framework-core" }
+def jarProject = subprojects.findAll {
+  it.name.endsWith("starter")
+    || it.name == "lura-framework-core" || it.name == 'lura-framework-commons'
+}
 
 
 // config maven publish
 configure(jarProject) {
-    apply plugin: 'java'
+  apply plugin: 'java'
 
-    group rootProject.group
-    version rootProject.version
-    targetCompatibility = "1.8"
+  group rootProject.group
+  version rootProject.version
+  targetCompatibility = "1.8"
 
-    repositories {
-        mavenCentral()
-        maven {
-            url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
-            mavenContent {
-                snapshotsOnly()
-            }
-        }
+  repositories {
+    mavenCentral()
+    maven {
+      url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+      mavenContent {
+        snapshotsOnly()
+      }
     }
+  }
+
+  dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+  }
 
 
-    apply from: "${rootProject.projectDir}/gradle/publish.gradle"
+  apply from: "${rootProject.projectDir}/gradle/publish.gradle"
 
 }
 

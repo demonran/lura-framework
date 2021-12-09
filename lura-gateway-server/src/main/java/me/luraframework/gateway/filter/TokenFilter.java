@@ -1,18 +1,25 @@
 package me.luraframework.gateway.filter;
 
+import com.google.common.collect.ImmutableMap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.luraframework.commons.exception.AppException;
+import me.luraframework.commons.exception.ErrorCode;
 import me.luraframework.gateway.config.AuthProperties;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+import static com.google.common.collect.ImmutableMap.of;
+import static me.luraframework.gateway.exception.GatewayErrorCode.INVALID_TOKEN;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -23,8 +30,7 @@ public class TokenFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String path = exchange.getRequest().getPath().value();
-        String token = exchange.getRequest().getHeaders().getFirst("Token");
-        ServerHttpResponse response = exchange.getResponse();
+        String token = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         if (path.equals(authProperties.getLoginUrl())) {
             return chain.filter(exchange);
         }
@@ -34,10 +40,10 @@ public class TokenFilter implements GlobalFilter, Ordered {
                         .header("Token", token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .retrieve()
-                        .onStatus(HttpStatus::is4xxClientError, clientResponse -> Mono.error(new Exception(clientResponse.toString())))
-                        .onStatus(HttpStatus::is5xxServerError, clientResponse -> Mono.error(Exception::new))
+                        .onStatus(HttpStatus::is4xxClientError, clientResponse -> Mono.error(new AppException(INVALID_TOKEN, of())))
+                        .onStatus(HttpStatus::is5xxServerError, clientResponse -> Mono.error(new AppException(INVALID_TOKEN, of())))
                         .bodyToMono(String.class)
-                .doOnNext(log::info)
+                        .doOnNext(log::info)
                         .then(chain.filter(exchange));
     }
 
