@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.luraframework.commons.exception.AppException;
 import me.luraframework.commons.exception.ErrorCode;
 import me.luraframework.gateway.config.AuthProperties;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -33,6 +34,9 @@ public class TokenFilter implements GlobalFilter, Ordered {
         String token = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         if (path.equals(authProperties.getLoginUrl())) {
             return chain.filter(exchange);
+        }
+        if (Strings.isBlank(token)) {
+            return Mono.error(new AppException(INVALID_TOKEN, of()));
         }
         WebClient webClient = WebClient.create();
         return webClient.post()
