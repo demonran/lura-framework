@@ -9,6 +9,16 @@ spring:
       - id: path_route
         uri: http://www.baidu.com
         predicates:
-        - Path=/
+        - Path=/test
+      - id: aliyun_route
+        uri: https://www.aliyun.com/
+        predicates:
+          - Path=/product/**
+      - id: httpbin_route
+        uri: https://httpbin.org
+        predicates:
+          - Path=/httpbin/**
+        filters:
+          - RewritePath=/httpbin/(?<segment>.*), /$\{segment}
 
 
