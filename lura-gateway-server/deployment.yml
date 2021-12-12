@@ -1,0 +1,66 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: gateway-service-ingress
+spec:
+  rules:
+    - host: gateway.sit.yumimiao.cn
+      http:
+        paths:
+          - backend:
+              serviceName: gateway-svc
+              servicePort: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-api
+  labels:
+    app: gateway-api
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: gateway-api
+  template:
+    metadata:
+      labels:
+        app: gateway-api
+    spec:
+      imagePullSecrets:
+      - name: aliyun-docker-registry
+      containers:
+        - name: lura-gateway-server
+          image: registry.cn-chengdu.aliyuncs.com/lura/lura-gateway-server:build-${BUILD_NUMBER}
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: "1024Mi"
+          env:
+            - name: SPRING_CLOUD_NACOS_DISCOVERY_SERVERADDR
+              value: "192.168.31.110:8848"
+          ports:
+            - containerPort: 22307
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+#      tolerations:
+#        - key: node-role.kubernetes.io/master
+#          effect: NoSchedule
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-svc
+  namespace: default
+  labels:
+    app: gateway-svc
+spec:
+  ports:
+    - port: 22307
+      targetPort: 80
+  selector:
+    app: gateway-api
+  type: ClusterIP
