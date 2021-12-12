@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-workDir=$(dirname "$PWD")
+workDir=$(cd $(dirname "$0"); pwd)
 
 # 启动nacos server
 .$workDir/start-nacos-server.sh
