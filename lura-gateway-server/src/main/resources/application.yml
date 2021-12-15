@@ -10,6 +10,10 @@ spring:
         uri: http://www.baidu.com
         predicates:
         - Path=/test
+      - id: auth_route
+        uri: http://localhost:8013
+        predicates:
+          - Path=/auth/**
       - id: aliyun_route
         uri: https://www.aliyun.com/
         predicates:
@@ -20,5 +24,13 @@ spring:
           - Path=/httpbin/**
         filters:
           - RewritePath=/httpbin/(?<segment>.*), /$\{segment}
+      globalcors:
+        cors-configurations:
+          '[/**]':
+#            allowCredentials: true
+            allowedOriginPatterns: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+#          add-to-simple-url-handler-mapping: true
 
 
