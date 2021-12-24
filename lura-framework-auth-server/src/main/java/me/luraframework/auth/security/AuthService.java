@@ -3,10 +3,12 @@ package me.luraframework.auth.security;
 import com.google.common.collect.ImmutableMap;
 import lombok.RequiredArgsConstructor;
 import me.luraframework.auth.exception.InvalidTokenException;
+import me.luraframework.auth.security.model.User;
+import me.luraframework.auth.security.model.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,8 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final TokenProvider tokenProvider;
     private final OnlineService onlineService;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     public String login(AuthUserDto authUserDto) {
@@ -46,5 +50,9 @@ public class AuthService {
         }
         throw new InvalidTokenException(ImmutableMap.of("token", token));
 
+    }
+
+    public void register(AuthUserDto authUserDto) {
+        userRepository.save(new User(authUserDto.getUsername(), passwordEncoder.encode(authUserDto.getPassword())));
     }
 }

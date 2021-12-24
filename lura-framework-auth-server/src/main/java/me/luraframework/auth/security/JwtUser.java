@@ -1,8 +1,8 @@
 package me.luraframework.auth.security;
 
 import lombok.Data;
+import me.luraframework.auth.security.model.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.Set;
 import java.util.stream.Collectors;

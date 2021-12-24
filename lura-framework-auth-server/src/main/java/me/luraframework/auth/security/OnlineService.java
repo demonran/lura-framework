@@ -1,6 +1,6 @@
 package me.luraframework.auth.security;
 
-import org.springframework.security.core.userdetails.User;
+import me.luraframework.auth.security.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
