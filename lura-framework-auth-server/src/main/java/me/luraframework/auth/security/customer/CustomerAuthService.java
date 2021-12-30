@@ -1,11 +1,13 @@
-package me.luraframework.auth.security;
+package me.luraframework.auth.security.customer;
 
 import com.google.common.collect.ImmutableMap;
 import lombok.RequiredArgsConstructor;
 import me.luraframework.auth.exception.InvalidTokenException;
-import me.luraframework.auth.security.model.User;
-import me.luraframework.auth.security.model.UserRepository;
-import org.springframework.security.authentication.AuthenticationManager;
+import me.luraframework.auth.security.AuthUserDto;
+import me.luraframework.auth.security.JwtUser;
+import me.luraframework.auth.security.OnlineService;
+import me.luraframework.auth.security.TokenProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,23 +18,23 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 @RequiredArgsConstructor
 
-public class AuthService {
+public class CustomerAuthService {
 
 
-    private final AuthenticationManager authenticationManager;
+    private final ProviderManager providerManager;
     private final TokenProvider tokenProvider;
     private final OnlineService onlineService;
-    private final UserRepository userRepository;
+    private final CustomerRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
 
     public String login(AuthUserDto authUserDto) {
 
-      UsernamePasswordAuthenticationToken authenticationToken
-              = new UsernamePasswordAuthenticationToken(authUserDto.getUsername(), authUserDto.getPassword());
-      Authentication authentication = authenticationManager.authenticate(authenticationToken);
-        User user = (User) authentication.getPrincipal();
-        JwtUser jwtUser = new JwtUser(user);
+      CustomerAuthentication authenticationToken
+              = new CustomerAuthentication(authUserDto.getUsername(), authUserDto.getPassword());
+      Authentication authentication = providerManager.authenticate(authenticationToken);
+        Customer user = (Customer) authentication.getPrincipal();
+        CustomerJwtUser jwtUser = new CustomerJwtUser(user);
         String token = tokenProvider.createToken(jwtUser);
         onlineService.addUser(token, user);
         return token;
@@ -53,6 +55,6 @@ public class AuthService {
     }
 
     public void register(AuthUserDto authUserDto) {
-        userRepository.save(new User(authUserDto.getUsername(), passwordEncoder.encode(authUserDto.getPassword())));
+        userRepository.save(new Customer(authUserDto.getUsername(), passwordEncoder.encode(authUserDto.getPassword())));
     }
 }

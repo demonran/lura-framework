@@ -1,7 +1,6 @@
-package me.luraframework.auth.security;
+package me.luraframework.auth.security.customer;
 
 import lombok.RequiredArgsConstructor;
-import me.luraframework.auth.security.model.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class LuraUserDetailsService implements UserDetailsService {
+public class CustomerUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final CustomerRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)

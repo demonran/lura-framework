@@ -1,17 +1,18 @@
 package me.luraframework.auth.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import me.luraframework.auth.security.customer.CustomerUserDetailsService;
+import me.luraframework.auth.security.business.BusinessAuthenticationProvider;
+import me.luraframework.auth.security.business.BusinessUserDetailService;
+import me.luraframework.auth.security.customer.CustomerAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -25,17 +26,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll();
+                .antMatchers("/**/login", "/**/register").permitAll();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    @Override
     @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    public ProviderManager authenticationManagerBean(BusinessUserDetailService businessUserDetailService,
+                                                     CustomerUserDetailsService customerUserDetailsService) throws Exception {
+        return new ProviderManager(new BusinessAuthenticationProvider(businessUserDetailService), new CustomerAuthenticationProvider(customerUserDetailsService));
     }
+
 }

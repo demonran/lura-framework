@@ -25,7 +25,7 @@ configurations.all {
 }
 
 dependencies {
-    implementation 'org.springframework.security:spring-security-jwt:1.1.1.RELEASE'
+    implementation("com.auth0:java-jwt:3.18.2")
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly("mysql:mysql-connector-java")

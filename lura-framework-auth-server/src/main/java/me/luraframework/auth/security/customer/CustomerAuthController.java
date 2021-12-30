@@ -1,6 +1,8 @@
-package me.luraframework.auth.security;
+package me.luraframework.auth.security.customer;
 
 import lombok.RequiredArgsConstructor;
+import me.luraframework.auth.security.AuthUserDto;
+import me.luraframework.auth.security.JwtUser;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class CustomerAuthController {
 
-    private final AuthService authService;
+    private final CustomerAuthService authService;
 
 
     @PostMapping("login")

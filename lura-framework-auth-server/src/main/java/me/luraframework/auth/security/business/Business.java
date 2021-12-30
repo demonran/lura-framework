@@ -1,8 +1,7 @@
-package me.luraframework.auth.security.model;
+package me.luraframework.auth.security.business;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,24 +15,23 @@ import java.util.Collection;
 
 @Data
 @Entity
-@Table(name = "lura_user")
+@Table(name = "lura_business")
 @NoArgsConstructor
-public class User implements UserDetails {
+public class Business implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
     private String password;
 
-
-    public User(String username, String password) {
+    public Business(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList("ROLE_USER");
+        return AuthorityUtils.createAuthorityList("USER");
     }
 
     @Override
