@@ -1,5 +1,7 @@
 server:
   port: 8013
+  servlet:
+    context-path: /auth
 spring:
   application:
     name: lura-framework-auth-server

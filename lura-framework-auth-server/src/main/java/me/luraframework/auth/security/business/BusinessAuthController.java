@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("business/auth")
+@RequestMapping("business")
 @RequiredArgsConstructor
 public class BusinessAuthController {
 
