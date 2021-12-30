@@ -4,8 +4,6 @@
 
 workdir=$(dirname "$PWD")
 
-cd $workdir/lura-framework-auth-server
+cd $workdir
 
-gradle bootJar
-
-nohup java -jar ./build/libs/lura-gateway-server.jar &
+./gradlew :lura-framework-auth-server:bootRun
