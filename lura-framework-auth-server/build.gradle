@@ -18,6 +18,11 @@ repositories {
     }
 }
 
+bootJar {
+    version ''
+    baseName 'lura-framework-auth-server'
+}
+
 configurations.all {
     resolutionStrategy {
         cacheChangingModulesFor 0, 'seconds'

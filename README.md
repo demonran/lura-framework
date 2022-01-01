@@ -45,6 +45,7 @@ bash ./scripts/start-net.sh
 
 
 ## 技术架构图
+![架构图](./doc/architecture.png)
 
 ## changelog
 - 增加swagger文档 

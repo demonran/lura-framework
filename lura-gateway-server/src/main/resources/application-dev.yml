@@ -1,0 +1,22 @@
+server:
+  port: 22307
+spring:
+  application:
+    name: lura-gateway-server
+  cloud:
+    gateway:
+      routes:
+      - id: auth_route
+        uri: http://lura-framework-auth-server:8013
+        predicates:
+          - Path=/auth/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+#            allowCredentials: true
+            allowedOriginPatterns: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+#          add-to-simple-url-handler-mapping: true
+
+
