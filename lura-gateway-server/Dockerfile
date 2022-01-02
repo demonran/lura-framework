@@ -8,7 +8,7 @@ ADD . /app
 RUN echo "ossrhUsername=user\nossrhPassword=passwd" >>gradle.properties
 
 # use BuildKit
-RUN --mount=type=cache,mode=755,target=/root/.gradle gradle :lura-gateway-server:build
+RUN --mount=type=cache,target=/root/.gradle,id=my_gradle_module,sharing=shared gradle :lura-gateway-server:build
 
 # Stage: 2
 FROM openjdk:8-jre

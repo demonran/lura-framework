@@ -31,7 +31,7 @@ public class TokenFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String path = exchange.getRequest().getPath().value();
         String token = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
-        if (antPathMatcher.match("/**/login", path)) {
+        if (antPathMatcher.match("/**/login", path) || antPathMatcher.match("/**/register", path)) {
             return chain.filter(exchange);
         }
         if (Strings.isBlank(token)) {
