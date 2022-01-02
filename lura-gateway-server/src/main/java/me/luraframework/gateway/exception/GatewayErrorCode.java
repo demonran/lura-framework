@@ -3,7 +3,8 @@ package me.luraframework.gateway.exception;
 import me.luraframework.commons.exception.ErrorCode;
 
 public enum GatewayErrorCode implements ErrorCode {
-    INVALID_TOKEN(403, "无效Token");
+    INVALID_TOKEN(403, "无效Token"),
+    UNAUTHORIZED(401, "未认证");
 
     private final int status;
     private final String message;

@@ -13,7 +13,9 @@ version '0.0.2-SNAPSHOT'
 
 def jarProject = subprojects.findAll {
   it.name.endsWith("starter")
-    || it.name == "lura-framework-core" || it.name == 'lura-framework-commons'
+    || it.name == "lura-framework-core"
+    || it.name == 'lura-framework-commons'
+    || it.name == 'lura-framework-security-core'
 }
 
 

@@ -18,6 +18,7 @@ dependencies {
     api 'com.google.guava:guava:31.0.1-jre'
     api "org.springframework.boot:spring-boot-starter-web"
     api 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
+    api project(":lura-framework-commons")
 
 
 

@@ -42,7 +42,7 @@ configurations.all {
 }
 
 dependencies {
-    implementation 'io.github.luraframework:lura-framework-commons:0.0.2-SNAPSHOT'
+    implementation project(':lura-framework-commons')
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
     implementation 'com.alibaba.csp:sentinel-datasource-nacos'

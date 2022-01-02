@@ -18,6 +18,7 @@ import reactor.core.publisher.Mono;
 
 import static com.google.common.collect.ImmutableMap.of;
 import static me.luraframework.gateway.exception.GatewayErrorCode.INVALID_TOKEN;
+import static me.luraframework.gateway.exception.GatewayErrorCode.UNAUTHORIZED;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -35,18 +36,19 @@ public class TokenFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
         if (Strings.isBlank(token)) {
-            return Mono.error(new AppException(INVALID_TOKEN, of()));
+            return Mono.error(new AppException(UNAUTHORIZED, of()));
         }
         return builder.build().post()
-                        .uri(authProperties.getCheckUrl())
-                        .header("Token", token)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .retrieve()
-                        .onStatus(HttpStatus::is4xxClientError, clientResponse -> Mono.error(new AppException(INVALID_TOKEN, of())))
-                        .onStatus(HttpStatus::is5xxServerError, clientResponse -> Mono.error(new AppException(INVALID_TOKEN, of())))
-                        .bodyToMono(String.class)
-                        .doOnNext(log::info)
-                        .then(chain.filter(exchange));
+                      .uri(authProperties.getCheckUrl())
+                      .header("Token", token)
+                      .contentType(MediaType.APPLICATION_JSON)
+                      .retrieve()
+                      .onStatus(HttpStatus::is4xxClientError, clientResponse -> Mono.error(new AppException(INVALID_TOKEN, of())))
+                      .onStatus(HttpStatus::is5xxServerError, clientResponse -> Mono.error(new AppException(INVALID_TOKEN, of())))
+                      .bodyToMono(String.class)
+                      .doOnNext(log::info)
+                      .doOnNext(userInfo -> exchange.getRequest().mutate().header("userInfo", userInfo))
+                      .then(chain.filter(exchange));
     }
 
     @Override

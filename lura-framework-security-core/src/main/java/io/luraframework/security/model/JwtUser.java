@@ -1,12 +1,9 @@
-package me.luraframework.auth.security;
+package io.luraframework.security.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.luraframework.auth.security.customer.Customer;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
