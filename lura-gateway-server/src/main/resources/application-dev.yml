@@ -10,6 +10,10 @@ spring:
         uri: lb://lura-framework-auth-server
         predicates:
           - Path=/auth/**
+      - id: product_service
+        uri: lb://ecommerce-product-service
+        predicates:
+          - Path=/product/**
       globalcors:
         cors-configurations:
           '[/**]':

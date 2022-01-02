@@ -45,14 +45,6 @@ public class CustomerAuthService {
         onlineService.removeUser(token);
     }
 
-    public JwtUser check(HttpServletRequest request) {
-        String token = tokenProvider.getToken(request);
-        if (onlineService.getOne(token) != null) {
-            return tokenProvider.checkToken(request);
-        }
-        throw new InvalidTokenException(ImmutableMap.of("token", token));
-
-    }
 
     public void register(AuthUserDto authUserDto) {
         userRepository.save(new Customer(authUserDto.getUsername(), passwordEncoder.encode(authUserDto.getPassword())));

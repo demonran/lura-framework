@@ -26,8 +26,4 @@ public class BusinessAuthController {
         businessAuthService.register(authUserDto);
     }
 
-    @PostMapping("check")
-    public BusinessJwtUser  check(HttpServletRequest request) {
-        return businessAuthService.check(request);
-    }
 }

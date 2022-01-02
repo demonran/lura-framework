@@ -38,8 +38,4 @@ public class BusinessAuthService {
         businessRepository.save(new Business(authUserDto.getUsername(), passwordEncoder.encode(authUserDto.getPassword())));
     }
 
-    public BusinessJwtUser check(HttpServletRequest request) {
-        String token = tokenProvider.getToken(request);
-        return (BusinessJwtUser)tokenProvider.checkToken(request);
-    }
 }

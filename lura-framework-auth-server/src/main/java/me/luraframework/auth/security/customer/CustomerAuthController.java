@@ -23,11 +23,6 @@ public class CustomerAuthController {
         return authService.login(authUserDto);
     }
 
-    @PostMapping("check")
-    public JwtUser check(HttpServletRequest request) {
-        return authService.check(request);
-    }
-
     @PostMapping("logout")
     public void logout(HttpServletRequest request) {
         authService.logout(request);
