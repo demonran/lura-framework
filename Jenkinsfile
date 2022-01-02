@@ -28,7 +28,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aliyun', passwordVariable: 'password', usernameVariable: 'username')]) {
                         sh "echo ${password} |sudo docker login --username=${username}  registry.cn-chengdu.aliyuncs.com --password-stdin"
-                        sh "sudo docker build --build-arg profile=dev -t ${DOCKER_IMAGE} -f ${project}/Dockerfile ."
+                        sh "sudo docker build -t ${DOCKER_IMAGE} -f ${project}/Dockerfile ."
                         sh "sudo docker push ${DOCKER_IMAGE}"
                         sh "sudo docker rmi ${DOCKER_IMAGE}"
                 }

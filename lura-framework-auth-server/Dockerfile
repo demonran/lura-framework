@@ -11,9 +11,8 @@ RUN --mount=type=cache,mode=755,target=/root/.gradle gradle :lura-framework-auth
 
 # Stage: 2
 FROM openjdk:8-jre
-
 COPY --from=builder /app/lura-framework-auth-server/build/libs/lura-framework-auth-server.jar /app.jar
 
-ARG profile
+ENV profile=dev
 
 ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=${profile}", "/app.jar"]

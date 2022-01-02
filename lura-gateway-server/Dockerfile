@@ -15,6 +15,6 @@ FROM openjdk:8-jre
 
 COPY --from=builder /app/lura-gateway-server/build/libs/lura-gateway-server.jar /app.jar
 
-ARG profile
+ENV profile=dev
 
 ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=${profile}", "/app.jar"]
