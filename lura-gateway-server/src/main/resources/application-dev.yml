@@ -7,7 +7,7 @@ spring:
     gateway:
       routes:
       - id: auth_route
-        uri: http://lura-framework-auth-server
+        uri: lb://lura-framework-auth-server
         predicates:
           - Path=/auth/**
       globalcors:

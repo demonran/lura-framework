@@ -1,4 +1,5 @@
 plugins {
+    id 'application'
     id 'org.springframework.boot'
     id 'io.spring.dependency-management'
     id 'java'
@@ -11,6 +12,11 @@ sourceCompatibility = '1.8'
 bootJar {
     version ''
     baseName 'lura-gateway-server'
+}
+
+application {
+    mainClassName = "me.luraframework.gateway.GatewayApplication"
+    applicationDefaultJvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5004"]
 }
 
 repositories {
