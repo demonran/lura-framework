@@ -1,5 +1,5 @@
 server:
-  port: 22307
+  port: 8080
 spring:
   application:
     name: lura-gateway-server
