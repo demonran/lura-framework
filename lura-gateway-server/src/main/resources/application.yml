@@ -18,6 +18,10 @@ spring:
         uri: lb://ecommerce-product-service
         predicates:
           - Path=/product/**
+      - id: order_service
+        uri: lb://ecommerce-order-service
+        predicates:
+          - Path=/order/**
       - id: aliyun_route
         uri: https://www.aliyun.com/
         predicates:
@@ -38,3 +42,6 @@ spring:
 #          add-to-simple-url-handler-mapping: true
 
 
+application.whitelist:
+  - url: /product/product/**
+    method: GET

@@ -3,7 +3,7 @@ package me.luraframework.gateway.filter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.luraframework.commons.exception.AppException;
-import me.luraframework.gateway.config.AuthProperties;
+import me.luraframework.gateway.config.ApplicationProperties;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -24,13 +24,19 @@ import static me.luraframework.gateway.exception.GatewayErrorCode.UNAUTHORIZED;
 @RequiredArgsConstructor
 public class TokenFilter implements GlobalFilter, Ordered {
 
-    private final AuthProperties authProperties;
+    private final ApplicationProperties applicationProperties;
     private final WebClient.Builder builder;
-    private AntPathMatcher antPathMatcher = new AntPathMatcher();
+    private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String path = exchange.getRequest().getPath().value();
+        String method = exchange.getRequest().getMethodValue();
+        for (ApplicationProperties.Whitelist whitelist : applicationProperties.getWhitelist()) {
+            if (method.equalsIgnoreCase(whitelist.getMethod()) && antPathMatcher.match(whitelist.getUrl(), path)) {
+                return chain.filter(exchange);
+            }
+        }
         String token = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         if (antPathMatcher.match("/**/login", path) || antPathMatcher.match("/**/register", path)) {
             return chain.filter(exchange);
@@ -39,7 +45,7 @@ public class TokenFilter implements GlobalFilter, Ordered {
             return Mono.error(new AppException(UNAUTHORIZED, of()));
         }
         return builder.build().post()
-                      .uri(authProperties.getCheckUrl())
+                      .uri(applicationProperties.getAuth().getCheckUrl())
                       .header("Token", token)
                       .contentType(MediaType.APPLICATION_JSON)
                       .retrieve()

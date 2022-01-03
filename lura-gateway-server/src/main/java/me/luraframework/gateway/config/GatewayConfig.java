@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class GatewayConfig {
 
     @Bean
-    public TokenFilter tokenFilter(AuthProperties authProperties, WebClient.Builder builder) {
+    public TokenFilter tokenFilter(ApplicationProperties authProperties, WebClient.Builder builder) {
         return new TokenFilter(authProperties, builder);
     }
 }
