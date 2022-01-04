@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'io.spring.dependency-management'
+    id 'org.springframework.boot'
+}
+
+group 'io.github.luraframework'
+version '0.0.2-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation(project(":lura-framework-core"))
+
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -14,6 +14,10 @@ spring:
         uri: lb://ecommerce-product-service
         predicates:
           - Path=/product/**
+      - id: order_service
+        uri: lb://ecommerce-order-service
+        predicates:
+          - Path=/order/**
       globalcors:
         cors-configurations:
           '[/**]':
