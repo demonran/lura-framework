@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class CustomerAuthService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public String login(AuthUserDto authUserDto) {
+    public Map<String, Object> login(AuthUserDto authUserDto) {
 
       CustomerAuthentication authenticationToken
               = new CustomerAuthentication(authUserDto.getUsername(), authUserDto.getPassword());
@@ -37,7 +38,7 @@ public class CustomerAuthService {
         CustomerJwtUser jwtUser = new CustomerJwtUser(user);
         String token = tokenProvider.createToken(jwtUser);
         onlineService.addUser(token, user);
-        return token;
+        return ImmutableMap.of("token", token, "user", jwtUser);
   }
 
     public void logout(HttpServletRequest request) {

@@ -1,7 +1,6 @@
 package me.luraframework.auth.exception;
 
-import me.luraframework.core.commons.exception.AppException;
-import me.luraframework.core.commons.exception.ErrorCode;
+import me.luraframework.commons.exception.AppException;
 
 import java.util.Map;
 

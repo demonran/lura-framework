@@ -1,6 +1,6 @@
 package me.luraframework.auth.exception;
 
-import me.luraframework.core.commons.exception.ErrorCode;
+import me.luraframework.commons.exception.ErrorCode;
 
 public enum AuthErrorCode implements ErrorCode {
     INVALID_TOKEN(403, "token无效");
