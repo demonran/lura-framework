@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-projectDir=$(dirname "$PWD")
-cd $projectDir
+workdir=$(dirname $(cd $(dirname "$0"); pwd))
+echo "current dir is: $workdir"
 
+cd ${workdir}
 
 ./gradlew clean :lura-framework-core:publishToMavenLocal
 ./gradlew clean :lura-framework-spring-boot-starter:publishToMavenLocal

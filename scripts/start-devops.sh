@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-workdir=$(dirname "$PWD")
+workdir=$(dirname $(cd $(dirname "$0"); pwd))
+echo "current dir is: $workdir"
 
 cd $workdir/devops
 
@@ -8,7 +9,7 @@ cd mysql
 
 docker-compose up -d
 
-cd ../redis
+cd $workdir/redis
 
 docker-compose up -d
 
